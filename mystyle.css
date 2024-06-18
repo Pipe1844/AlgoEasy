@@ -24,7 +24,7 @@ body {
 
 /** HEADER **/
 #header-nav {
-  background-color: #4b6596;
+  background-color: #764b96;
   border-radius: 0;
   border: 0;
   box-shadow: 0px 2px 5px #27272780;
@@ -70,7 +70,7 @@ body {
 }
 
 #nav-list a:hover {
-  background: #1a1a66;
+  background: #73278f;
   color: rgb(196, 195, 195);
 }
 
@@ -394,9 +394,14 @@ button {
 
 
 
+.transform{
+background-color: #d0b1e7fc;
+display: flex;
+}
 
-
-
+.selectStorage{
+  padding: 20px 20px 0 0;
+}
 
 
 
@@ -481,9 +486,9 @@ button {
 
   /*Simulate Page */
   .left {
-    width: 80%;
+    width: 100%;
     padding: 30px;
-    margin-left: 10%;
+    margin-left: 0%;
   }
 
   #second {
@@ -524,6 +529,10 @@ button {
     height: 25%;
     width: 35%;
   }
+  .left {
+    width: 100%;
+    margin-left: 0%;
+  }
 
   #diskimg2 {
     height: 35%;
@@ -561,13 +570,7 @@ button {
 
 
   /* Simulate Page */
-  .left {
-    width: 80%;
-    margin-top: 20px;
-    padding: 25px;
-    padding-left: 50px;
-    margin-left: 10%;
-  }
+ 
 
   .right {
     width: 100%;
@@ -676,9 +679,9 @@ button {
   /*Simulate Page */
 
   .left {
-    width: 80%;
+    width: 100%;
     margin-top: 25px;
-    margin-left: 10%;
+    margin-left: 0%;
     padding-left: 60px;
   }
 
@@ -731,9 +734,9 @@ button {
 
 @media (max-width: 600px) {
   .left {
-    width: 80%;
+    width: 100%;
     margin: 15px;
-    margin-left: 6%;
+    margin-left: 0%;
     padding: 0px;
   }
 

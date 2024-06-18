@@ -1,37 +1,132 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+    
+        <title>Visualización de Algoritmos de Planificación de Discos</title>
+        
+        <!--CSS y Script linking-->
+        <link rel="stylesheet" href="mystyle.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">    
+    </head>
 
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta charset="utf-8">
+    <body>
+        <header>
+            <nav id="header-nav" class="navbar navbar-default">
+              <div class="container">
+                <div class="navbar-header">
+                  <div class="navbar-brand">
+                    <a href="#"><h1>Algoritmos de Planificación de Discos</h1></a>
+                  </div>
+        
+                  <button id="navbarToggle" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-nav" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                </div>
+        
+                <div id="collapsable-nav" class="collapse navbar-collapse">
+                   <ul id="nav-list" class="nav navbar-nav navbar-right">
+                    <li>
+                      <a href="Simulate.html">
+                        <i class="fa fa-area-chart" aria-hidden="true"></i><br class="hidden-xs"> Simular</a>
+                    </li>
+                  
+                  </ul><!-- #nav-list -->
+                </div><!-- .collapse .navbar-collapse -->
+              </div><!-- .container -->
+            </nav><!-- #header-nav -->
+        </header>
 
   <title>Disk Scheduling Algorithms Visualization</title>
 
-  <!--CSS and Script linking-->
-  <link rel="stylesheet" href="mystyle.css">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
+            <div class="left transform">
+              <div class="ladoIzquierdo">
+              <form name="myForm">
+                <fieldset>
+                    <div class="row2">
+                        <div class="form-group">
+                            <label for="exampleSelect1">Algoritmo</label>
+                              <select class="form-control" id="algorithm" >
+                                <option id="o1" value="fcfs" >FCFS</option>
+                                <option id="o2" value="sstf" >SSTF</option>
+                                <option id="o3" value="scan" >SCAN</option>
+                              </select>
+                        </div>
+                        <div class="form-group" id="second" id="admDivCheck">
+                            <label for="exampleSelect1">Dirección</label>
+                              <select class="form-control" id="direction">
+                                <option value="left" selected="selected">Izquierda</option>
+                                <option value="right">Derecha</option>
+                              </select>
+                        </div>
+                    </div>
+                    <div class="row2">
+  
+                        <div class="form-group" >
+                            <label class="col-form-label" for="inputDefault">Secuencia de cilindros</label>
+                            <input class="form-control" id="bitstream-input" name="bitstream" placeholder="Secuencia separada por espacios" type="text" size="35">
+                          
+                          </div>
+                      </div>
+                    <div class="row2">
+                        <div class="form-group" >
+                            <label class="col-form-label" for="inputDefault">Cilindro inicial</label>
+                            <input class="form-control" id="initial-input" name="intial"  type="text" size="5">
+                        </div>
+                        <div class="form-group" id="second"  style="margin-left: 30px;">
+                            <label class="col-form-label" for="inputDefault">Último cilindro</label>
+                            <input class="form-control" id="final-input" name="final"  type="text" size="5">
+                        </div>
+                        <div  class="form-group" style="display: flex; align-items: flex-end; justify-content: center; margin-left: 20px;">
+                          <button type="submit" id="plot-button" class="btn btn-primary;" style="margin-left: 0;">Guardar Local</button>
+                        </div>
+                    </div>
+                </fieldset>
+              </form>
+              <button type="submit" id="plot-button" class="btn btn-primary" onclick="getBitStreamAndPlot(event, document.getElementById('bitstream-input').value, document.getElementById('initial-input').value, document.getElementById('final-input').value, document.getElementById('algorithm').value,document.getElementById('direction').value)"><a href="#grph" style="color: white; text-decoration: none;">&nbsp;Graficar&nbsp;</a></button>
+              <button type="submit" id="animate-button" class="btn btn-primary">Animar</button>
+              <button type="submit" id="cmpr-button" class="btn btn-primary" onclick="cmprPlot(event, document.getElementById('bitstream-input').value, document.getElementById('initial-input').value, document.getElementById('final-input').value, document.getElementById('direction').value)"><a href="#cmpr" style="color: white; text-decoration: none;">&nbsp;Comparar&nbsp;</a></button>
+            </div>
+            <div class="selectStorage">
+              <select class="form-select" size="9" aria-label="Size 3 select example">
+              <option selected>Procesos Guardados</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+              <option value="3">Three</option>
+              <option value="3">Three</option>
+              <option value="3">Three</option>
+              <option value="3">Three</option>
+            </select>
+            </div>
+        
+            </div>
 
-<body>
-  <header>
-    <nav id="header-nav" class="navbar navbar-default">
-      <div class="container">
-        <div class="navbar-header">
 
-          <div class="navbar-brand">
-            <a href="#">
-              <h1>Disk Scheduling Algorithms</h1>
-            </a>
+            <div class="right">
+              <div id="am_alg_name"></div>
+              <div id="cl-seek"></div>
+              <div id="am_alg_seek"></div>
+              <canvas id="canvas" width=700 height=700></canvas>
+            </div>
           </div>
 
-          <button id="navbarToggle" type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-            data-target="#collapsable-nav" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
+          <div id="grph" class="container2">
+            <div id="plt_alg_name"></div>
+            <div id="graph_area"></div>
+            <div id="plt_alg_seek"></div>
+            <div id="cal-seek"></div>
+          </div>
+          <div id="cmpr" class="container3">
+            <div id="cmpr-head"></div>
+            <div id="cmpr_area"></div>
+          </div>
+
         </div>
 
         <div id="collapsable-nav" class="collapse navbar-collapse">
