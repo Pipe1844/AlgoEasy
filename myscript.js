@@ -1048,7 +1048,7 @@ $("#clearLocalStorage").click(function () {
     loadLocal();
 });
 
-function loadLocal(){
+function loadLocal() {
     let saved = $("#savedLocal");
     let arrayDisk = JSON.parse(localStorage.getItem('disk'));
     saved.html(`<option selected disabled>Procesos Guardados</option>`);
@@ -1057,18 +1057,21 @@ function loadLocal(){
     });
 }
 
-$(document).on('change', '#savedLocal', function() {
+$(document).on('change', '#savedLocal', function () {
     let index = $(this).val();
     let arrayDisk = JSON.parse(localStorage.getItem('disk'));
     let selectedDisk = arrayDisk[index];
     fillInputs(selectedDisk);
 });
 
-function fillInputs(disk){
+$(document).ready(function () {
+    loadLocal();
+});
+
+function fillInputs(disk) {
     $('#algorithm').val(disk.algorith);
     $('#direction').val(disk.direction);
     $('#bitstream-input').val(disk.sequence);
     $('#initial-input').val(disk.initial);
     $('#final-input').val(disk.last);
 }
-
