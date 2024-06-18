@@ -1013,6 +1013,17 @@ class Disk {
 }
 
 $("#saveLocalStorage").click(function () {
+    let bitstream = document.getElementById('bitstream-input').value;
+    let initial = document.getElementById('initial-input').value;
+    let final = document.getElementById('final-input').value;
+    let algorithm = document.getElementById('algorithm').value;
+    let direction = document.getElementById('direction').value;
+
+    if (!bitstream || !initial || !final || !algorithm || !direction) {
+        alert("Rellena los campos");
+        return;
+    }
+
     let diskArray = [];
 
     if (localStorage.getItem('disk') != null) {
@@ -1020,20 +1031,20 @@ $("#saveLocalStorage").click(function () {
     }
 
     let disk = new Disk("", "", "", "", "");
-    disk.algorith = document.getElementById('algorithm').value;
-    disk.direction = document.getElementById('direction').value;
-    disk.sequence = document.getElementById('bitstream-input').value;
-    disk.initial = document.getElementById('initial-input').value;
-    disk.last = document.getElementById('final-input').value;
+    disk.algorith = algorithm;
+    disk.direction = direction;
+    disk.sequence = bitstream;
+    disk.initial = initial;
+    disk.last = final;
 
-    console.log(disk);
     diskArray.push(disk);
 
     localStorage.setItem('disk', JSON.stringify(diskArray));
     loadLocal();
 });
 
-$(document).ready(function($){
+$("#clearLocalStorage").click(function () {
+    localStorage.removeItem('disk');
     loadLocal();
 });
 
